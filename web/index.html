@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>租户目录迁移台</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <h1>租户目录迁移台</h1>
+  <div class="actions">
+    <button id="btn-seed">填充演示数据</button>
+    <button id="btn-reset" class="danger">重置为空目录</button>
+    <button id="btn-isolation">隔离边界自检</button>
+    <button id="btn-refresh">刷新</button>
+  </div>
+</header>
+
+<main>
+  <section class="card">
+    <h2>租户</h2>
+    <p class="hint">迁移中可持续接收新批次；追平后才能切换；未完成的迁移可回退。</p>
+    <table id="tenants">
+      <thead><tr>
+        <th>租户</th><th>状态</th><th>legacy 行数</th><th>隔离目录行数</th>
+        <th>隔离区引用</th><th>迁移</th><th>滞后批次</th><th>操作</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="card" id="preview-card" hidden>
+    <h2>冲突预览 <span id="preview-tenant" class="tag"></span></h2>
+    <div id="preview-summary"></div>
+    <table id="preview-table">
+      <thead><tr><th>事实标记</th><th>引用</th><th>原因</th><th>说明</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>查询</h2>
+    <div class="actions">
+      <select id="query-tenant"></select>
+      <button id="btn-query">查询</button>
+      <button id="btn-compare">对照查询</button>
+    </div>
+    <div id="query-result"></div>
+  </section>
+
+  <section class="card">
+    <h2>共享维度（只读共享版本）</h2>
+    <p class="hint">修订 / 删除（墓碑）/ 权限收紧立即对所有租户的下一次查询生效。</p>
+    <table id="shared-dims">
+      <thead><tr>
+        <th>键</th><th>版本</th><th>状态</th><th>可见租户</th><th>内容</th><th>操作</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>最近批次</h2>
+    <table id="batches">
+      <thead><tr><th>批次</th><th>租户</th><th>序号</th><th>去向</th><th>条数</th><th>时间</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>日志</h2>
+    <pre id="log"></pre>
+  </section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>
